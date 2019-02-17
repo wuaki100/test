@@ -1,0 +1,174 @@
+<html>
+<meta charset="utf-8">
+<head>
+    <title> show city </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function()
+        {
+          /*----
+            $("#selectid1").on('change',function()
+            {
+
+                var objS=document.getElementById('selectid1');
+                var provice=objS.options[objS.selectedIndex].value;
+                var data={};
+                data['city']=provice;
+                $.ajax({
+                    type: 'POST',
+                    url:"/province",
+                    data:JSON.stringify(data),  //转化字符串
+                    contentType: 'application/json; charset=UTF-8',
+                    success:function(data){ //成功的话，得到消息
+                        //alert(data);
+                        addselect(data);
+                       // $("#selectid2").append("<option value="+data.id+">" + data.name+ "</option>");
+                    }
+                });
+            })
+
+            $("#selectid2").on('change',function(){
+
+            var objS1=document.getElementById('selectid2');
+            var provice1=objS1.selectedIndex;
+
+            //var text2=objS1.options[objS1.selectedIndex].value;
+            var text3=objS1.options[objS1.selectedIndex].text;
+                //   alert(text2);
+                  alert(text3);
+            })
+ ----*/
+            $("#sn").on('keyup',function(){
+
+             var objS2=document.getElementById('sn');
+             var provice2=objS2.value;
+
+             if(provice2=="")
+                 {
+            $("#context1").css("display","none");
+            return ;
+        }
+             var data={};
+             data['name']=provice2;
+              $.ajax({
+                    type: 'POST',
+                    url:"/login",
+                    data:JSON.stringify(data),  //转化字符串
+                    contentType: 'application/json; charset=UTF-8',
+                    success:function(result){ //成功的话，得到消息
+
+                       // addselect(data);
+                      //  j = Object.keys(data);
+                     //   $("#result").empty();
+                         //alert(j);
+                    //    for (var i = 1; i <= j.length; ++i) {
+                           //  alert(i);
+                           // alert(data[i]);
+
+                    //      $("#result").append(data[i]);
+
+                    //    }
+
+                      var html="";
+                      var dataObj = result, //返回的result为json格式的数据
+                         con = "";
+                         $.each(dataObj, function(index, item){
+                           //  con += "姓名："+item.name+"";
+                           //  con += "</br>";
+
+                                 html+="<div onclick='setSearch_onclick(this)' onmouseout='changeBackColor_out(this)' onmouseover='changeBackColor_over(this)'>"+item.name+"</div>";
+
+
+                            // con += "<li>索引："+index+"</li>";
+                          });
+                        // console.log(con);    //可以在控制台打印一下看看，这是拼起来的标签和数据
+                        // $("#result").html(con);
+                         $("#context1").html(html);
+                //显示为块级元素
+                         $("#context1").css("display","block");
+
+
+                    }
+                });
+
+
+          //  var select3 = document.getElementById("result");
+          //       select3.append(provice2);
+            })
+
+
+        })
+        //  function login()
+         // {
+              //alert("12312321321");
+         //      var x=document.getElementById("sn")
+        //       alert(x.value)
+
+        //}
+
+       // function addselect(data) {
+       //     var select = document.getElementById("selectid2");
+        //    $("#selectid2").empty();
+        //    j = Object.keys(data);
+        //    for (var i = 1; i <= j.length; ++i) {
+       //         var newItem = document.createElement("option");
+       //         var newItemText = document.createTextNode(data[i]);
+       //         newItem.appendChild(newItemText);
+        //        newItem.setAttribute("value",i);
+
+       //         select.appendChild(newItem)
+
+        //    };
+
+       // }
+
+
+ function changeBackColor_over(div){
+  $(div).css("background-color","#CCCCCC");
+ }
+ //鼠标离开内容
+ function changeBackColor_out(div){
+  $(div).css("background-color","");
+ }
+ //将点击的内容放到搜索框
+ function setSearch_onclick(div){
+  $(".inputtable").val(div.innerText);
+  $("#context1").css("display","none");
+ }
+    </script>
+</head>
+
+<body>
+    <from>
+
+
+            <!--<h1 align="center"> 省市联动</h1>
+        </br>
+        <label align="center"> 省份 </label>
+        <select id="selectid1" >
+            <option value="福建" > 福建 </option>
+            <option value="重庆" > 重庆 </option>
+            <option value="浙江" > 浙江 </option>
+            <option value="北京" > 北京 </option>
+        </select>
+           </br>
+        <label> 城市 </label>
+        <select id="selectid2" >
+        </select>
+    <p><span id="result"></span></p>
+    <input type="submit" value="登录" onclick="login()">
+   <img src="{{ url_for('static', filename='images/20180819002220436.png') }}">
+        </br>
+    <p><span id="result"></span></p>          -->
+<div id="context">
+        <input type="text"  id="sn" class="inputtable" >
+</br>
+     <div id="context1" style="background-color:white; border: 1px solid red;width:128px;display:none" " >
+     </div>
+
+</div>
+    </from>
+</body>
+</html>
